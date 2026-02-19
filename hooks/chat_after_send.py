@@ -20,13 +20,21 @@ def main(payload):
     info = payload.get("payload", {}) or {}
     # 没有正文输出时不改写，避免空消息被无意义修改。
     if not bool(info.get("responseStarted")):
+        print("[sample_tool_plugin] 跳过追加后缀：responseStarted=False（本次未产生正文）")
         return None
     # 用户手动中断时不改写，保持中断语义清晰。
     if bool(info.get("interrupted")):
+        print("[sample_tool_plugin] 跳过追加后缀：interrupted=True（用户中断）")
         return None
     message = info.get("message")
     if not isinstance(message, dict):
+        print("[sample_tool_plugin] 跳过追加后缀：payload.message 不是对象")
         return None
 
     content = str(message.get("content", ""))
-    return {"message": {"role": "assistant", "content": f"{content}喵"}}
+    patched = f"{content}喵"
+    print(
+        "[sample_tool_plugin] 已追加后缀：suffix='喵', "
+        f"before_len={len(content)}, after_len={len(patched)}"
+    )
+    return {"message": {"role": "assistant", "content": patched}}
