@@ -1,0 +1,86 @@
+{
+  "id": "sample_tool_plugin",
+  "name": "示例工具插件",
+  "author": "NowChat",
+  "description": "用于演示插件目录结构、工具、Hook 与页面动作的最小样例。",
+  "version": "1.0.0",
+  "type": "python",
+  "providesGlobalPythonPaths": false,
+  "permissions": [
+    "tool:*",
+    "hook:*"
+  ],
+  "packages": [
+    {
+      "id": "runtime",
+      "name": "Plugin Runtime",
+      "description": "本地导入示例包，不需要远程下载字段。",
+      "version": "1.0.0",
+      "targetDir": ".",
+      "pythonPathEntries": [
+        "."
+      ]
+    }
+  ],
+  "tools": [
+    {
+      "name": "sample_echo",
+      "description": "返回输入参数，便于验证工具调用链路。",
+      "runtime": "python_script",
+      "scriptPath": "tools/echo.py",
+      "enabledByDefault": true,
+      "timeoutSec": 20,
+      "outputLimit": 8000,
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "需要回显的文本"
+          }
+        },
+        "required": [
+          "text"
+        ]
+      }
+    },
+    {
+      "name": "sample_add",
+      "description": "演示 inline runtime，计算两个数字之和。",
+      "runtime": "python_inline",
+      "inlineCode": "a = payload.get('a', 0)\nb = payload.get('b', 0)\n_result = {'sum': a + b}",
+      "enabledByDefault": false,
+      "timeoutSec": 10,
+      "outputLimit": 4000,
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "a": {
+            "type": "number"
+          },
+          "b": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ]
+      }
+    }
+  ],
+  "hooks": [
+    {
+      "event": "app_start",
+      "runtime": "python_script",
+      "scriptPath": "hooks/app_start.py",
+      "priority": 10
+    },
+    {
+      "event": "chat_after_send",
+      "runtime": "python_script",
+      "scriptPath": "hooks/chat_after_send.py",
+      "priority": 5
+    }
+  ]
+}
