@@ -10,11 +10,11 @@ import json
 import os
 from typing import Any, Dict
 
-from ui import UiButton
-from ui import UiPage
-from ui import UiSelect
-from ui import UiSwitch
-from ui import UiTextInput
+from sample_tool_ui import UiButton
+from sample_tool_ui import UiPage
+from sample_tool_ui import UiSelect
+from sample_tool_ui import UiSwitch
+from sample_tool_ui import UiTextInput
 
 
 class SampleUiPage(UiPage):

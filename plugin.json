@@ -5,6 +5,7 @@
   "description": "用于演示插件目录结构、工具、Hook 与页面动作的最小样例。",
   "version": "1.0.0",
   "type": "python",
+  "pythonNamespace": "sample_tool_ui",
   "providesGlobalPythonPaths": false,
   "permissions": [
     "tool:*",

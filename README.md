@@ -17,7 +17,7 @@
 
 4. 插件配置页能力
 - 提供输入框、开关、下拉和保存按钮。
-- 点击保存后将当前配置写入 `ui/config.json`。
+- 点击保存后将当前配置写入 `sample_tool_ui/config.json`。
 
 ## 目录结构
 ```text
@@ -28,7 +28,7 @@ sample_tool_plugin/
   hooks/
     app_start.py
     chat_after_send.py
-  ui/
+  sample_tool_ui/
     __init__.py
     base.py
     schema.py
@@ -37,7 +37,7 @@ sample_tool_plugin/
 ## 结构说明
 - `tools/`：模型可调用的工具脚本。
 - `hooks/`：订阅宿主事件后自动触发的脚本。
-- `ui/`：插件配置页面 DSL（基础类 + 页面实现）。
+- `sample_tool_ui/`：插件配置页面 DSL（基础类 + 页面实现）。
 
 ## plugin.json 字段说明
 `plugin.json` 是标准 JSON，不支持注释。字段含义如下：
@@ -48,6 +48,7 @@ sample_tool_plugin/
 - `description`：插件描述。
 - `version`：插件版本号。
 - `type`：插件类型（示例为 `python`）。
+- `pythonNamespace`：Python 插件 UI 命名空间目录（示例为 `sample_tool_ui`）。
 - `providesGlobalPythonPaths`：是否把本插件路径暴露为“全局共享 Python 路径”。
   - `false`：默认隔离，仅当前插件自身使用。
   - `true`：其他插件执行 Python 时也会自动追加本插件路径（适合基础库插件）。
@@ -60,9 +61,9 @@ sample_tool_plugin/
 - `tools/echo.py`：工具入口 `main(payload)`，返回结构化 JSON。
 - `hooks/app_start.py`：启动事件 Hook 示例。
 - `hooks/chat_after_send.py`：聊天后置 Hook 示例。
-- `ui/base.py`：UI DSL 基类与组件协议。
-- `ui/schema.py`：插件配置页面实现。
-- `ui/__init__.py`：UI DSL 导出入口。
+- `sample_tool_ui/base.py`：UI DSL 基类与组件协议。
+- `sample_tool_ui/schema.py`：插件配置页面实现。
+- `sample_tool_ui/__init__.py`：UI DSL 导出入口。
 
 ## 使用方式
 1. 将 `sample_tool_plugin` 目录压缩为 zip（zip 根目录需直接包含 `plugin.json`）。
